@@ -1,7 +1,7 @@
 import state from '../../state';
 import socket from '../../socket';
 
-export default (options: any) => {
+const create = (options: any) => {
 
     if(state.isConnected) {
 
@@ -53,3 +53,5 @@ export default (options: any) => {
     }
 
 };
+
+export default create;

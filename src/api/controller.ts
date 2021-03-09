@@ -1,5 +1,5 @@
 import express from 'express';
-import commandCreate from './command/create';
+import commands from './command';
 
 /*
 {
@@ -11,6 +11,13 @@ import commandCreate from './command/create';
     }
   }
 }
+
+{
+  "command": "run",
+  "options": {
+
+  }
+}
 */
 export const postCommand = (request: express.Request, response: express.Response, next: express.NextFunction) => {
 
@@ -20,13 +27,20 @@ export const postCommand = (request: express.Request, response: express.Response
         const command = request.body.command;
         const options = request.body.options;
 
-        let result;
+        let result: boolean;
+        let commandResult: any;
+
+        console.log(`Command : ${command}`);
 
         switch(command) {
 
             case 'create':
-                console.log('Command : create');
-                const commandResult: any = commandCreate(options);
+                commandResult = commands.create(options);
+                result = commandResult.result;
+                break;
+
+            case 'run':
+                commandResult = commands.run();
                 result = commandResult.result;
                 break;
 
