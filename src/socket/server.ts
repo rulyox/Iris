@@ -1,10 +1,11 @@
 import io from 'socket.io';
 const socketIO = require('socket.io')();
+import { print } from '../utility';
 
 const newSocket = (socket: io.Socket) => {
 
     socket.on('iris-message', (...args) => {
-        console.log(args);
+        print(args);
     });
 
     socket.emit('iris-message', 'Hello World!');
@@ -25,7 +26,7 @@ export const startServer = (port: number) => {
         cookie: false
     });
 
-    console.log(`Socket server running on port ${port}`);
+    print(`Socket server running on port ${port}`);
 
 };
 
@@ -33,6 +34,6 @@ export const endServer = () => {
 
     socketIO.close();
 
-    console.log(`Socket server ended`);
+    print(`Socket server ended`);
 
 };

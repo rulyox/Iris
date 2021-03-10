@@ -1,6 +1,7 @@
 import state from '../../state';
 import execute from '../../execute';
 import CommandResult from './CommandResult';
+import { print } from '../../utility';
 
 const containerCreate = (options: any): CommandResult => {
 
@@ -11,8 +12,8 @@ const containerCreate = (options: any): CommandResult => {
         const image = options.image;
 
         execute.execute(execute.command.dockerRun(image))
-            .then((result) => console.log(result))
-            .catch((error) => console.log(error));
+            .then((result) => print(result))
+            .catch((error) => print(error));
 
         return new CommandResult(true, null);
 

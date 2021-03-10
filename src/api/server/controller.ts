@@ -3,6 +3,7 @@ import commands from '../command';
 import CommandResult from '../command/CommandResult';
 import ServerResult from './ServerResult';
 import { parseForm } from '../utility';
+import { print } from '../../utility';
 
 /*
 network_create
@@ -50,7 +51,7 @@ export const postCommand = async (request: express.Request, response: express.Re
         let serverResult: ServerResult;
         let commandResult: CommandResult;
 
-        console.log(`Command : ${command}`);
+        print(`Command : ${command}`);
 
         switch(command) {
 
@@ -98,6 +99,8 @@ export const postFile = async (request: express.Request, response: express.Respo
         // results
         let serverResult: ServerResult;
         let commandResult: CommandResult;
+
+        print(`Command : file ${command}`);
 
         if(command !== undefined && (directory === 'image' || directory === 'private' || directory === 'public') && name !== undefined && files !== undefined) {
 

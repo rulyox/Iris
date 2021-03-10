@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import router from './router';
+import { print } from '../../utility';
 
 export const startServer = (port: number) => {
 
@@ -10,6 +11,6 @@ export const startServer = (port: number) => {
 
     app.use(router);
 
-    app.listen(port, () => console.log(`API server running on port ${port}`));
+    app.listen(port, () => print(`API server running on port ${port}`));
 
 };
