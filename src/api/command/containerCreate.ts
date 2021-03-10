@@ -1,7 +1,7 @@
 import state from '../../state';
 import execute from '../../execute';
 
-const containerCreate = () => {
+const containerCreate = (options: any) => {
 
     if(!state.isConnected) {
 
@@ -12,11 +12,22 @@ const containerCreate = () => {
 
     }
 
-    execute.execute('echo Hello World!')
-        .then((result) => console.log(result));
+    if(options?.image) {
+
+        const image = options.image;
+
+        execute.execute(execute.command.dockerRun(image))
+            .then((result) => console.log(result))
+            .catch((error) => console.log(error));
+
+        return {
+            result: true
+        };
+
+    }
 
     return {
-        result: true
+        result: false
     };
 
 };

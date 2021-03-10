@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import state from '../../state';
 import execute from '../../execute';
 import { getDirectory } from '../utility';
 
@@ -12,6 +13,15 @@ const loadDockerImage = (path: string) => {
 };
 
 const fileSave = (directory: string, name: string, files: any) => {
+
+    if(!state.isConnected) {
+
+        return {
+            result: false,
+            message: 'Not connected to a network'
+        };
+
+    }
 
     for(const file of files) {
 

@@ -23,7 +23,7 @@ container_execute
 {
   "command": "container_create",
   "options": {
-    "image": "hello-world"
+    "image": "hello-world:latest"
   }
 }
 */
@@ -48,7 +48,7 @@ export const postCommand = async (request: express.Request, response: express.Re
                 break;
 
             case 'container_create':
-                commandResult = commands.containerCreate();
+                commandResult = commands.containerCreate(options);
                 result = commandResult.result;
                 break;
 
