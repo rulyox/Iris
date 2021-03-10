@@ -1,7 +1,7 @@
 import state from '../../state';
 import socket from '../../socket';
 
-const create = (options: any) => {
+const networkCreate = (options: any) => {
 
     if(state.isConnected) {
 
@@ -54,4 +54,4 @@ const create = (options: any) => {
 
 };
 
-export default create;
+export default networkCreate;

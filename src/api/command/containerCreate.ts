@@ -1,7 +1,7 @@
 import state from '../../state';
-import { execute } from '../../execute/execute';
+import execute from '../../execute';
 
-const run = () => {
+const containerCreate = () => {
 
     if(!state.isConnected) {
 
@@ -12,7 +12,8 @@ const run = () => {
 
     }
 
-    execute('echo Hello World!').then(result => console.log(result));
+    execute.execute('echo Hello World!')
+        .then((result) => console.log(result));
 
     return {
         result: true
@@ -20,4 +21,4 @@ const run = () => {
 
 };
 
-export default run;
+export default containerCreate;

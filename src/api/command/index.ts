@@ -1,7 +1,9 @@
-import create from './create';
-import run from './run';
+import networkCreate from './networkCreate';
+import containerCreate from './containerCreate';
+import fileSave from './fileSave';
 
 export default {
-    create: create,
-    run: run
+    networkCreate: networkCreate,
+    containerCreate: containerCreate,
+    fileSave: fileSave
 };

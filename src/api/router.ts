@@ -1,5 +1,5 @@
 import express from 'express';
-import { postCommand } from './controller';
+import { postCommand, postFile } from './controller';
 
 const router = express.Router();
 
@@ -10,5 +10,6 @@ router.get('/', (request, response) => {
 });
 
 router.post('/command', postCommand);
+router.post('/file', postFile);
 
 export default router;

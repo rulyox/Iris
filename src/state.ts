@@ -1,5 +1,10 @@
 class State {
 
+    readonly workspaceDirectory: string = '/workspace';
+    readonly imageDirectory: string = '/workspace/image';
+    readonly privateDirectory: string = '/workspace/private';
+    readonly publicDirectory: string = '/workspace/public';
+
     // singleton instance
     private static instance: State;
 
