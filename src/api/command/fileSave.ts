@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import state from '../../state';
 import execute from '../../execute';
+import CommandResult from './CommandResult';
 import { getDirectory } from '../utility';
 
 const loadDockerImage = (path: string) => {
@@ -12,16 +13,9 @@ const loadDockerImage = (path: string) => {
 
 };
 
-const fileSave = (directory: string, name: string, files: any) => {
+const fileSave = (directory: string, name: string, files: any): CommandResult => {
 
-    if(!state.isConnected) {
-
-        return {
-            result: false,
-            message: 'Not connected to a network'
-        };
-
-    }
+    if(!state.isConnected) return new CommandResult(false, 'Not connected to a network');
 
     for(const file of files) {
 
@@ -42,9 +36,7 @@ const fileSave = (directory: string, name: string, files: any) => {
 
     }
 
-    return {
-        result: true
-    };
+    return new CommandResult(true, null);
 
 };
 

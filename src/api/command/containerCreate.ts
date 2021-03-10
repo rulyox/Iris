@@ -1,16 +1,10 @@
 import state from '../../state';
 import execute from '../../execute';
+import CommandResult from './CommandResult';
 
-const containerCreate = (options: any) => {
+const containerCreate = (options: any): CommandResult => {
 
-    if(!state.isConnected) {
-
-        return {
-            result: false,
-            message: 'Not connected to a network'
-        };
-
-    }
+    if(!state.isConnected) return new CommandResult(false, 'Not connected to a network');
 
     if(options?.image) {
 
@@ -20,15 +14,13 @@ const containerCreate = (options: any) => {
             .then((result) => console.log(result))
             .catch((error) => console.log(error));
 
-        return {
-            result: true
-        };
+        return new CommandResult(true, null);
+
+    } else {
+
+        return new CommandResult(false, '');
 
     }
-
-    return {
-        result: false
-    };
 
 };
 
