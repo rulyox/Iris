@@ -6,7 +6,7 @@ import { parseForm } from '../utility';
 
 /*
 network_create
-network_connect
+network_join
 network_leave
 container_create
 container_remove
@@ -19,6 +19,15 @@ container_execute
       "mode": "master_slave",
       "key": "o23e9nfd54gpz"
     }
+  }
+}
+
+{
+  "command": "network_join",
+  "options": {
+    "ip": "111.222.333.444",
+    "port": "8081",
+    "key": "o23e9nfd54gpz"
   }
 }
 
@@ -37,8 +46,8 @@ export const postCommand = async (request: express.Request, response: express.Re
         const command = request.body.command;
         const options = request.body.options;
 
-        let result: boolean;
-        let message: string|null;
+        // results
+        let serverResult: ServerResult;
         let commandResult: CommandResult;
 
         console.log(`Command : ${command}`);
@@ -47,23 +56,25 @@ export const postCommand = async (request: express.Request, response: express.Re
 
             case 'network_create':
                 commandResult = commands.networkCreate(options);
-                result = commandResult.result;
-                message = commandResult.message;
+                serverResult = new ServerResult(commandResult.result, commandResult.message);
+                break;
+
+            case 'network_join':
+                commandResult = commands.networkJoin(options);
+                serverResult = new ServerResult(commandResult.result, commandResult.message);
                 break;
 
             case 'container_create':
                 commandResult = commands.containerCreate(options);
-                result = commandResult.result;
-                message = commandResult.message;
+                serverResult = new ServerResult(commandResult.result, commandResult.message);
                 break;
 
             default:
-                result = false;
-                message = 'Wrong command';
+                serverResult = new ServerResult(false, 'Wrong command');
 
         }
 
-        response.send(new ServerResult(result, message));
+        response.send(serverResult);
 
     } catch(error) { next(error); }
 
@@ -84,8 +95,8 @@ export const postFile = async (request: express.Request, response: express.Respo
         const name: string = parsedForm.name;
         const files = parsedForm.files;
 
-        let result: boolean;
-        let message: string|null;
+        // results
+        let serverResult: ServerResult;
         let commandResult: CommandResult;
 
         if(command !== undefined && (directory === 'image' || directory === 'private' || directory === 'public') && name !== undefined && files !== undefined) {
@@ -94,24 +105,21 @@ export const postFile = async (request: express.Request, response: express.Respo
 
                 case 'save':
                     commandResult = commands.fileSave(directory, name, files);
-                    result = commandResult.result;
-                    message = commandResult.message;
+                    serverResult = new ServerResult(commandResult.result, commandResult.message);
                     break;
 
                 default:
-                    result = false;
-                    message = 'Wrong command';
+                    serverResult = new ServerResult(false, 'Wrong command');
 
             }
 
         } else {
 
-            result = false;
-            message = 'Wrong request';
+            serverResult = new ServerResult(false, 'Wrong request');
 
         }
 
-        response.send(new ServerResult(result, message));
+        response.send(serverResult);
 
     } catch(error) { next(error); }
 

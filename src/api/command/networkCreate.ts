@@ -34,7 +34,7 @@ const networkCreate = (options: any): CommandResult => {
 
     } else {
 
-        return new CommandResult(false, 'Config does not exist');
+        return new CommandResult(false, 'Wrong option');
 
     }
 

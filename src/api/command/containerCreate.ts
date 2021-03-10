@@ -18,7 +18,7 @@ const containerCreate = (options: any): CommandResult => {
 
     } else {
 
-        return new CommandResult(false, '');
+        return new CommandResult(false, 'Wrong option');
 
     }
 
