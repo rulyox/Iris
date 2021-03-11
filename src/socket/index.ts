@@ -1,5 +1,5 @@
-import { startServer, endServer } from './server';
-import { startClient, endClient } from './client';
+import { startServer, endServer } from './server/server';
+import { startClient, endClient } from './client/client';
 
 export default {
     server: { startServer, endServer },
