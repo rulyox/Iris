@@ -17,9 +17,45 @@ class State {
         return this.instance;
     }
 
+    private _ip: string = '';
+    private _apiPort: number = 0;
+    private _socketPort: number = 0;
+    private _password: string = '';
     private _isConnected: boolean = false;
     private _isGenesis: boolean = false;
     private _networkConfig: any = {};
+
+    get ip(): string {
+        return this._ip;
+    }
+
+    set ip(value: string) {
+        this._ip = value;
+    }
+
+    get apiPort(): number {
+        return this._apiPort;
+    }
+
+    set apiPort(value: number) {
+        this._apiPort = value;
+    }
+
+    get socketPort(): number {
+        return this._socketPort;
+    }
+
+    set socketPort(value: number) {
+        this._socketPort = value;
+    }
+
+    get password(): string {
+        return this._password;
+    }
+
+    set password(value: string) {
+        this._password = value;
+    }
 
     get isConnected(): boolean {
         return this._isConnected;

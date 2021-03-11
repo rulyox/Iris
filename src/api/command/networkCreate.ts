@@ -17,7 +17,7 @@ const networkCreate = (options: any): CommandResult => {
                 key: config.key
             };
 
-            socket.server.startServer(8081);
+            socket.server.startServer();
 
             // set state
             state.isConnected = true;

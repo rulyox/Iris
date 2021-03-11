@@ -1,5 +1,6 @@
 import io from 'socket.io';
 const socketIO = require('socket.io')();
+import state from '../state';
 import { print } from '../utility';
 
 const newSocket = (socket: io.Socket) => {
@@ -18,7 +19,9 @@ socketIO.on('connection', (socket: io.Socket) => {
 
 });
 
-export const startServer = (port: number) => {
+export const startServer = () => {
+
+    const port = state.socketPort;
 
     socketIO.attach(port, {
         pingInterval: 10000,
