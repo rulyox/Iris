@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import { messageEvent, authEvent } from '../event';
+import { authEvent, joinEvent, messageEvent } from '../event';
 import state from '../../state';
 import { print } from '../../utility';
 
@@ -46,6 +46,7 @@ export const authListener = (socket: Socket) => {
 
             print(`Socket ${socket.id} joined network`);
 
+            socket.emit(joinEvent);
             state.addSocketClient(socket.id, socket);
 
         } else {

@@ -1,15 +1,5 @@
-import { authEvent, requestAuthEvent, messageEvent } from '../event';
+import { authEvent, requestAuthEvent, joinEvent, messageEvent } from '../event';
 import { print } from '../../utility';
-
-export const messageListener = (socket: SocketIOClient.Socket) => {
-
-    socket.on(messageEvent, (arg: any) => {
-
-        print(arg);
-
-    });
-
-};
 
 export const requestAuthListener = (socket: SocketIOClient.Socket, key: string) => {
 
@@ -18,6 +8,26 @@ export const requestAuthListener = (socket: SocketIOClient.Socket, key: string) 
         socket.emit(authEvent, {
             key: key
         });
+
+    });
+
+};
+
+export const joinListener = (socket: SocketIOClient.Socket) => {
+
+    socket.on(joinEvent, () => {
+
+        print(`Joined network`);
+
+    });
+
+};
+
+export const messageListener = (socket: SocketIOClient.Socket) => {
+
+    socket.on(messageEvent, (arg: any) => {
+
+        print(arg);
 
     });
 
