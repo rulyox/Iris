@@ -3,25 +3,81 @@ const socketIO = require('socket.io')();
 import state from '../state';
 import { print } from '../utility';
 
-const newSocket = (socket: io.Socket) => {
+const registerSocket = (socket: io.Socket) => {
 
-    socket.on('iris-message', (...args) => {
-        print(args);
+    print(`Socket ${socket.id} registered`);
+
+    socket.on('iris-auth', (arg) => {
+
+        const result = parseAuth(arg);
+
+        if(result.result) {
+
+            print(`Socket ${socket.id} joined network`);
+
+            state.addSocketClient(socket.id, socket);
+
+        } else {
+
+            socket.emit('iris-message', result.message);
+            socket.disconnect();
+
+        }
+
     });
 
-    socket.emit('iris-message', 'Hello World!');
+    socket.on('disconnect', (reason) => {
+
+        print(`Socket ${socket.id} disconnected : ${reason}`);
+
+        state.removeSocketClient(socket.id);
+
+    });
 
 };
 
-socketIO.on('connection', (socket: io.Socket) => {
+const parseAuth = (arg: any): {
+    result: boolean,
+    message: string|null
+} => {
 
-    newSocket(socket);
+    if(typeof arg === 'object' && !(arg instanceof Array)) {
 
-});
+        if(arg?.key) {
+
+            if(state.networkConfig.key === arg.key) {
+
+                return { result: true, message: null };
+
+            } else {
+
+                return { result: false, message: 'Wrong key' };
+
+            }
+
+        } else {
+
+            return { result: false, message: 'Do not have key' };
+
+        }
+
+    } else {
+
+        return { result: false, message: 'Not an object' };
+
+    }
+
+};
 
 export const startServer = () => {
 
     const port = state.socketPort;
+
+    socketIO.on('connection', (socket: io.Socket) => {
+
+        registerSocket(socket);
+
+    });
 
     socketIO.attach(port, {
         pingInterval: 10000,

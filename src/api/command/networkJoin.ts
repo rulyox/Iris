@@ -12,7 +12,7 @@ const networkJoin = (options: any): CommandResult => {
         const port = options.port;
         const key = options.key;
 
-        socket.client.startClient(ip, port);
+        socket.client.startClient(ip, port, key);
 
         return new CommandResult(true, null);
 

@@ -24,6 +24,7 @@ class State {
     private _isConnected: boolean = false;
     private _isGenesis: boolean = false;
     private _networkConfig: any = {};
+    private _socketClients: any = {};
 
     get ip(): string {
         return this._ip;
@@ -79,6 +80,18 @@ class State {
 
     set networkConfig(value: any) {
         this._networkConfig = value;
+    }
+
+    get socketClients(): any {
+        return this._socketClients;
+    }
+
+    public addSocketClient(id: string, socket: any) {
+        this._socketClients[id] = socket;
+    }
+
+    public removeSocketClient(id: string) {
+        delete this._socketClients[id];
     }
 
 }

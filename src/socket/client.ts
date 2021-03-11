@@ -3,12 +3,16 @@ import { print } from '../utility';
 
 let socket: any;
 
-export const startClient = (ip: string, port: number) => {
+export const startClient = (ip: string, port: number, key: string) => {
 
     socket = io(`ws://${ip}:${port}`);
 
-    socket.on('iris-message', (...args: any) => {
-        print(args);
+    socket.on('iris-message', (arg: any) => {
+        print(arg);
+    });
+
+    socket.emit('iris-auth', {
+        key: key
     });
 
     print(`Socket client connected`);
