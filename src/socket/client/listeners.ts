@@ -19,7 +19,7 @@ export const requestInfoListener = (socket: SocketIOClient.Socket) => {
     socket.on(requestInfoEvent, () => {
 
         socket.emit(infoEvent, {
-            test: 'info'
+            name: state.name
         });
 
     });
