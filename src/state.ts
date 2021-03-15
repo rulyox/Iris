@@ -19,13 +19,13 @@ class State {
         return this.instance;
     }
 
-    private _name: string = '';
-    private _ip: string = '';
-    private _apiPort: number = 0;
-    private _socketPort: number = 0;
-    private _password: string = '';
-    private _isConnected: boolean = false;
-    private _isGenesis: boolean = false;
+    private _name = '';
+    private _ip = '';
+    private _apiPort = 0;
+    private _socketPort = 0;
+    private _password = '';
+    private _isConnected = false;
+    private _isGenesis = false;
     private _networkConfig: any = {};
     private _networkMap: any = {};
     private _socketClients: any = {};

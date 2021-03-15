@@ -33,21 +33,25 @@ export const infoListener = (socket: Socket) => {
 
         if(result.result) {
 
-            const name: string = result.name!;
-            const ip: string = result.ip!;
-            const apiPort: number = result.apiPort!;
-            const socketPort: number = result.socketPort!;
+            if(result.name !== null && result.ip !== null && result.apiPort !== null && result.socketPort !== null) {
 
-            print(`${name} joined network`);
+                const name: string = result.name;
+                const ip: string = result.ip;
+                const apiPort: number = result.apiPort;
+                const socketPort: number = result.socketPort;
 
-            state.addSocketClient(socket.id, socket, name, ip, apiPort, socketPort);
+                print(`${name} joined network`);
 
-            socket.emit(joinEvent, {
-                networkConfig: state.networkConfig
-            });
+                state.addSocketClient(socket.id, socket, name, ip, apiPort, socketPort);
 
-            // debug
-            console.log(state.networkMap);
+                socket.emit(joinEvent, {
+                    networkConfig: state.networkConfig
+                });
+
+                // debug
+                console.log(state.networkMap);
+
+            }
 
         } else {
 
