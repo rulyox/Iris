@@ -2,6 +2,7 @@ import express from 'express';
 import commands from '../commands';
 import CommandResult from '../commands/CommandResult';
 import ServerResult from './ServerResult';
+import state from '../../state';
 import { parseForm } from '../utility';
 import { print } from '../../utility';
 
@@ -45,7 +46,13 @@ export const postCommand = async (request: express.Request, response: express.Re
 
         // parse request body
         const command = request.body.command;
+        const password = request.body.password;
         const options = request.body.options;
+
+        if(password !== state.password) {
+            response.sendStatus(401);
+            return;
+        }
 
         // results
         let serverResult: ServerResult;
@@ -76,7 +83,8 @@ export const postCommand = async (request: express.Request, response: express.Re
                 break;
 
             default:
-                serverResult = new ServerResult(false, 'Wrong command');
+                response.sendStatus(400);
+                return;
 
         }
 
