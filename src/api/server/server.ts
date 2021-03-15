@@ -14,6 +14,6 @@ export const startServer = () => {
 
     app.use(router);
 
-    app.listen(port, () => print(`API server running on port ${port}`));
+    app.listen(port, () => print(`${state.name} API server running on port ${port}`));
 
 };

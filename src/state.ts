@@ -1,3 +1,5 @@
+import { Socket } from 'socket.io';
+
 class State {
 
     readonly workspaceDirectory: string = '/workspace';
@@ -17,6 +19,7 @@ class State {
         return this.instance;
     }
 
+    private _name: string = '';
     private _ip: string = '';
     private _apiPort: number = 0;
     private _socketPort: number = 0;
@@ -25,6 +28,15 @@ class State {
     private _isGenesis: boolean = false;
     private _networkConfig: any = {};
     private _socketClients: any = {};
+    private _socketServers: any = {};
+
+    get name(): string {
+        return this._name;
+    }
+
+    set name(value: string) {
+        this._name = value;
+    }
 
     get ip(): string {
         return this._ip;
@@ -86,12 +98,24 @@ class State {
         return this._socketClients;
     }
 
-    public addSocketClient(id: string, socket: any) {
+    public addSocketClient(id: string, socket: Socket) {
         this._socketClients[id] = socket;
     }
 
     public removeSocketClient(id: string) {
         delete this._socketClients[id];
+    }
+
+    get socketServers(): any {
+        return this._socketServers;
+    }
+
+    public addSocketServer(id: string, socket: SocketIOClient.Socket) {
+        this._socketServers[id] = socket;
+    }
+
+    public removeSocketServer(id: string) {
+        delete this._socketServers[id];
     }
 
 }

@@ -3,6 +3,7 @@ import yargs from 'yargs';
 import state from './state';
 
 const parseArguments = (): {
+    name: string,
     ip: string,
     api: number,
     socket: number,
@@ -11,15 +12,17 @@ const parseArguments = (): {
 
     const argv = yargs(process.argv.slice(2))
         .options({
+            name: { type: 'string' },
             ip: { type: 'string' },
             api: { type: 'number' },
             socket: { type: 'number' },
             password: { type: 'string' }
         })
-        .demandOption(['ip', 'api', 'socket', 'password'])
+        .demandOption(['name', 'ip', 'api', 'socket', 'password'])
         .argv;
 
     return {
+        name: argv.name,
         ip: argv.ip,
         api: argv.api,
         socket: argv.socket,
@@ -28,8 +31,9 @@ const parseArguments = (): {
 
 };
 
-const setState = (ip: string, api: number, socket: number, password: string) => {
+const setState = (name: string, ip: string, api: number, socket: number, password: string) => {
 
+    state.name = name;
     state.ip = ip;
     state.apiPort = api;
     state.socketPort = socket;
@@ -48,8 +52,8 @@ const createDirectory = () => {
 
 const initialize = () => {
 
-    const { ip, api, socket, password } = parseArguments();
-    setState(ip, api, socket, password);
+    const { name, ip, api, socket, password } = parseArguments();
+    setState(name, ip, api, socket, password);
     createDirectory();
 
 };

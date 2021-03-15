@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import { authEvent, joinEvent, messageEvent } from '../event';
+import { authEvent, infoEvent, requestInfoEvent, messageEvent, joinEvent } from '../event';
 import state from '../../state';
 import { print } from '../../utility';
 
@@ -44,10 +44,7 @@ export const authListener = (socket: Socket) => {
 
         if(result.result) {
 
-            print(`Socket ${socket.id} joined network`);
-
-            socket.emit(joinEvent);
-            state.addSocketClient(socket.id, socket);
+            socket.emit(requestInfoEvent);
 
         } else {
 
@@ -55,6 +52,19 @@ export const authListener = (socket: Socket) => {
             socket.disconnect();
 
         }
+
+    });
+
+};
+
+export const infoListener = (socket: Socket) => {
+
+    socket.on(infoEvent, (arg) => {
+
+        print(`Socket ${socket.id} joined network`);
+
+        socket.emit(joinEvent);
+        state.addSocketClient(socket.id, socket);
 
     });
 

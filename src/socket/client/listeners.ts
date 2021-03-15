@@ -1,4 +1,5 @@
-import { authEvent, requestAuthEvent, joinEvent, messageEvent } from '../event';
+import { authEvent, requestAuthEvent, infoEvent, requestInfoEvent, joinEvent, messageEvent } from '../event';
+import state from '../../state';
 import { print } from '../../utility';
 
 export const requestAuthListener = (socket: SocketIOClient.Socket, key: string) => {
@@ -13,11 +14,25 @@ export const requestAuthListener = (socket: SocketIOClient.Socket, key: string) 
 
 };
 
+export const requestInfoListener = (socket: SocketIOClient.Socket) => {
+
+    socket.on(requestInfoEvent, () => {
+
+        socket.emit(infoEvent, {
+            test: 'info'
+        });
+
+    });
+
+};
+
 export const joinListener = (socket: SocketIOClient.Socket) => {
 
     socket.on(joinEvent, () => {
 
-        print(`Joined network`);
+        print('Joined network');
+
+        state.addSocketServer(socket.id, socket);
 
     });
 
