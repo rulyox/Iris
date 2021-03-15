@@ -1,6 +1,6 @@
 import express from 'express';
-import commands from '../command';
-import CommandResult from '../command/CommandResult';
+import commands from '../commands';
+import CommandResult from '../commands/CommandResult';
 import ServerResult from './ServerResult';
 import { parseForm } from '../utility';
 import { print } from '../../utility';
@@ -62,6 +62,11 @@ export const postCommand = async (request: express.Request, response: express.Re
 
             case 'network_join':
                 commandResult = commands.networkJoin(options);
+                serverResult = new ServerResult(commandResult.result, commandResult.message);
+                break;
+
+            case 'network_leave':
+                commandResult = commands.networkLeave();
                 serverResult = new ServerResult(commandResult.result, commandResult.message);
                 break;
 
