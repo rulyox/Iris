@@ -93,9 +93,11 @@ export const infoListener = (socket: Socket) => {
 
             const name: string = result.name!;
 
-            print(`Socket ${socket.id} ${name} joined network`);
+            print(`${name} joined network`);
 
-            socket.emit(joinEvent);
+            socket.emit(joinEvent, {
+                networkConfig: state.networkConfig
+            });
             state.addSocketClient(socket.id, socket);
 
         } else {
@@ -104,6 +106,16 @@ export const infoListener = (socket: Socket) => {
             socket.disconnect();
 
         }
+
+    });
+
+};
+
+export const messageListener = (socket: Socket) => {
+
+    socket.on(messageEvent, (arg: any) => {
+
+        print(`Message : ${arg}`);
 
     });
 

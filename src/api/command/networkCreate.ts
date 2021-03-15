@@ -10,9 +10,10 @@ const networkCreate = (options: any): CommandResult => {
 
         const config = options.config;
 
-        if(config?.mode && config?.key) {
+        if(config?.name && config?.mode && config?.key) {
 
             const networkConfig = {
+                name: config.name,
                 mode: config.mode,
                 key: config.key
             };
