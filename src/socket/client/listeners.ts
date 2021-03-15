@@ -1,32 +1,7 @@
 import { authEvent, requestAuthEvent, infoEvent, requestInfoEvent, joinEvent, messageEvent } from '../event';
+import { parseJoinResponse } from './parsers';
 import state from '../../state';
 import { print } from '../../utility';
-
-const parseJoinResponse = (arg: any): {
-    result: boolean,
-    message: string|null,
-    networkConfig: any
-} => {
-
-    if(typeof arg === 'object' && !(arg instanceof Array)) {
-
-        if(arg?.networkConfig) {
-
-            return { result: true, message: null, networkConfig: arg.networkConfig };
-
-        } else {
-
-            return { result: false, message: 'JoinResponse Error : Do not have network config', networkConfig: null };
-
-        }
-
-    } else {
-
-        return { result: false, message: 'JoinResponse Error : Not an object', networkConfig: null };
-
-    }
-
-};
 
 export const requestAuthListener = (socket: SocketIOClient.Socket, key: string) => {
 
@@ -45,7 +20,10 @@ export const requestInfoListener = (socket: SocketIOClient.Socket) => {
     socket.on(requestInfoEvent, () => {
 
         socket.emit(infoEvent, {
-            name: state.name
+            name: state.name,
+            ip: state.ip,
+            apiPort: state.apiPort,
+            socketPort: state.socketPort
         });
 
     });

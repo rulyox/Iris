@@ -103,12 +103,19 @@ class State {
         return this._socketClients;
     }
 
-    public addSocketClient(id: string, socket: Socket) {
+    public addSocketClient(id: string, socket: Socket, name: string, ip: string, apiPort: number, socketPort: number) {
         this._socketClients[id] = socket;
+        this._networkMap[id] = {
+            name: name,
+            ip: ip,
+            apiPort: apiPort,
+            socketPort: socketPort
+        };
     }
 
     public removeSocketClient(id: string) {
         delete this._socketClients[id];
+        delete this._networkMap[id];
     }
 
     get socketServers(): any {
