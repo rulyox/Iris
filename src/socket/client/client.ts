@@ -1,5 +1,5 @@
 import socketClient from 'socket.io-client';
-import { requestAuthListener, requestInfoListener, joinListener, messageListener } from './listeners';
+import { requestAuthListener, requestInfoListener, joinListener, commandListener, messageListener } from './listeners';
 import state from '../../state';
 import { print } from '../../utility';
 
@@ -15,6 +15,7 @@ export const startClient = (ip: string, port: number, key: string) => {
     requestAuthListener(socket, key);
     requestInfoListener(socket);
     joinListener(socket);
+    commandListener(socket);
     messageListener(socket);
 
 };

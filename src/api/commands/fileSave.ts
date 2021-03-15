@@ -1,8 +1,10 @@
 import fs from 'fs';
 import path from 'path';
+import formidable from 'formidable';
 import state from '../../state';
 import execute from '../../execute';
 import CommandResult from './CommandResult';
+import broadcast from '../../socket/broadcast';
 import { getDirectory } from '../utility';
 import { print } from '../../utility';
 
@@ -14,30 +16,28 @@ const loadDockerImage = (path: string) => {
 
 };
 
-const fileSave = (directory: string, name: string, files: any): CommandResult => {
+const fileSave = (directory: string, name: string, file: formidable.File): CommandResult => {
 
     if(!state.isConnected) return new CommandResult(false, 'Not connected to a network');
 
-    for(const file of files) {
+    const oldPath = file.path;
 
-        const oldPath = file.path;
+    let newPath = getDirectory(directory);
 
-        let newPath = getDirectory(directory);
+    if(newPath !== undefined) {
 
-        if(newPath !== undefined) {
+        newPath = path.join(newPath, name);
 
-            newPath = path.join(newPath, name);
+        fs.renameSync(oldPath, newPath);
 
-            fs.renameSync(oldPath, newPath);
+        print(`File saved : ${name}`);
 
-            print(`File saved : ${name}`);
-
-            // load docker image
-            if(directory === 'image') loadDockerImage(newPath);
-
-        }
+        // load docker image
+        if(directory === 'image') loadDockerImage(newPath);
 
     }
+
+    broadcast.broadcastToClients(name);
 
     return new CommandResult(true, null);
 

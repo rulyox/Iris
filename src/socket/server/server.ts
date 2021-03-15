@@ -1,6 +1,6 @@
 import { Socket, Server } from 'socket.io';
 import { requestAuthEvent } from '../event';
-import { authListener, infoListener, messageListener, disconnectListener } from './listeners';
+import { authListener, infoListener, commandListener, messageListener, disconnectListener } from './listeners';
 import state from '../../state';
 import { print } from '../../utility';
 
@@ -16,6 +16,7 @@ const registerSocket = (socket: Socket) => {
     // listeners
     authListener(socket);
     infoListener(socket);
+    commandListener(socket);
     messageListener(socket);
     disconnectListener(socket);
 

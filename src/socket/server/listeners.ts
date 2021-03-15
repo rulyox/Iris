@@ -1,6 +1,7 @@
 import { Socket } from 'socket.io';
-import { authEvent, infoEvent, requestInfoEvent, messageEvent, joinEvent } from '../event';
+import { authEvent, infoEvent, requestInfoEvent, messageEvent, joinEvent, commandEvent } from '../event';
 import { parseAuth, parseInfo } from './parsers';
+import commands from '../commands';
 import state from '../../state';
 import { print } from '../../utility';
 
@@ -59,6 +60,16 @@ export const infoListener = (socket: Socket) => {
             socket.disconnect();
 
         }
+
+    });
+
+};
+
+export const commandListener = (socket: Socket) => {
+
+    socket.on(commandEvent, (arg: any) => {
+
+        commands.test(arg);
 
     });
 

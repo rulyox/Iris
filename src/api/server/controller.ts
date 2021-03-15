@@ -1,4 +1,5 @@
 import express from 'express';
+import formidable from 'formidable';
 import commands from '../commands';
 import CommandResult from '../commands/CommandResult';
 import ServerResult from './ServerResult';
@@ -107,7 +108,7 @@ export const postFile = async (request: express.Request, response: express.Respo
         const command: string = parsedForm.command;
         const directory: string = parsedForm.directory;
         const name: string = parsedForm.name;
-        const files = parsedForm.files;
+        const files: formidable.File[] = parsedForm.files;
 
         // results
         let serverResult: ServerResult;
@@ -115,12 +116,13 @@ export const postFile = async (request: express.Request, response: express.Respo
 
         print(`API File : ${command}`);
 
-        if(command !== undefined && (directory === 'image' || directory === 'private' || directory === 'public') && name !== undefined && files !== undefined) {
+        if(command !== undefined && (directory === 'image' || directory === 'private' || directory === 'public') && name !== undefined && files !== undefined && files.length === 1) {
 
             switch(command) {
 
                 case 'save':
-                    commandResult = commands.fileSave(directory, name, files);
+                    const file: formidable.File = files[0];
+                    commandResult = commands.fileSave(directory, name, file);
                     serverResult = new ServerResult(commandResult.result, commandResult.message);
                     break;
 

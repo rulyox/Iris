@@ -1,5 +1,6 @@
-import { authEvent, requestAuthEvent, infoEvent, requestInfoEvent, joinEvent, messageEvent } from '../event';
+import { authEvent, requestAuthEvent, infoEvent, requestInfoEvent, joinEvent, commandEvent, messageEvent } from '../event';
 import { parseJoinResponse } from './parsers';
+import commands from '../commands';
 import state from '../../state';
 import { print } from '../../utility';
 
@@ -53,6 +54,16 @@ export const joinListener = (socket: SocketIOClient.Socket) => {
             socket.disconnect();
 
         }
+
+    });
+
+};
+
+export const commandListener = (socket: SocketIOClient.Socket) => {
+
+    socket.on(commandEvent, (arg: any) => {
+
+        commands.test(arg);
 
     });
 
