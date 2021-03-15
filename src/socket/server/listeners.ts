@@ -18,19 +18,45 @@ const parseAuth = (arg: any): {
 
             } else {
 
-                return { result: false, message: 'Wrong key' };
+                return { result: false, message: 'Auth Error : Wrong key' };
 
             }
 
         } else {
 
-            return { result: false, message: 'Do not have key' };
+            return { result: false, message: 'Auth Error : Do not have key' };
 
         }
 
     } else {
 
-        return { result: false, message: 'Not an object' };
+        return { result: false, message: 'Auth Error : Not an object' };
+
+    }
+
+};
+
+const parseInfo = (arg: any): {
+    result: boolean,
+    message: string|null,
+    name: string|null
+} => {
+
+    if(typeof arg === 'object' && !(arg instanceof Array)) {
+
+        if(arg?.name) {
+
+            return { result: true, message: null, name: arg.name };
+
+        } else {
+
+            return { result: false, message: 'Info Error : Do not have name', name: null };
+
+        }
+
+    } else {
+
+        return { result: false, message: 'Info Error : Not an object', name: null };
 
     }
 
@@ -61,10 +87,23 @@ export const infoListener = (socket: Socket) => {
 
     socket.on(infoEvent, (arg) => {
 
-        print(`Socket ${socket.id} joined network`);
+        const result = parseInfo(arg);
 
-        socket.emit(joinEvent);
-        state.addSocketClient(socket.id, socket);
+        if(result.result) {
+
+            const name: string = result.name!;
+
+            print(`Socket ${socket.id} ${name} joined network`);
+
+            socket.emit(joinEvent);
+            state.addSocketClient(socket.id, socket);
+
+        } else {
+
+            socket.emit(messageEvent, result.message);
+            socket.disconnect();
+
+        }
 
     });
 

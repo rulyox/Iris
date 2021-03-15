@@ -27,6 +27,7 @@ class State {
     private _isConnected: boolean = false;
     private _isGenesis: boolean = false;
     private _networkConfig: any = {};
+    private _networkMap: any = {};
     private _socketClients: any = {};
     private _socketServers: any = {};
 
@@ -92,6 +93,10 @@ class State {
 
     set networkConfig(value: any) {
         this._networkConfig = value;
+    }
+
+    get networkMap(): any {
+        return this._networkMap;
     }
 
     get socketClients(): any {
