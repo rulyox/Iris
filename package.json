@@ -1,28 +1,27 @@
 {
-  "name": "iris",
-  "version": "1.0.0",
-  "description": "",
+  "name": "iris-net",
+  "version": "0.0.1",
+  "description": "A node for Iris Network",
   "main": "iris.ts",
+  "author": "rulyox",
+  "license": "MIT",
   "scripts": {
     "build": "tsc",
     "start": "node build/iris.js",
     "lint": "eslint src/**"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@types/body-parser": "^1.19.0",
     "@types/express": "^4.17.11",
     "@types/formidable": "^1.0.32",
     "@types/socket.io": "^2.1.13",
-    "@types/socket.io-client": "^1.4.35",
+    "@types/socket.io-client": "^1.4.36",
     "@types/yargs": "^16.0.0",
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "formidable": "^1.2.2",
-    "socket.io": "^3.1.2",
-    "socket.io-client": "^3.1.2",
+    "socket.io": "^4.0.0",
+    "socket.io-client": "^4.0.0",
     "yargs": "^16.2.0"
   },
   "devDependencies": {
