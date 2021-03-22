@@ -63,29 +63,34 @@ export const postCommand = async (request: express.Request, response: express.Re
 
         switch(command) {
 
-            case 'network_create':
+            case 'network_create': {
                 commandResult = commands.networkCreate(options);
                 serverResult = new ServerResult(commandResult.result, commandResult.message);
                 break;
+            }
 
-            case 'network_join':
+            case 'network_join': {
                 commandResult = commands.networkJoin(options);
                 serverResult = new ServerResult(commandResult.result, commandResult.message);
                 break;
+            }
 
-            case 'network_leave':
+            case 'network_leave': {
                 commandResult = commands.networkLeave();
                 serverResult = new ServerResult(commandResult.result, commandResult.message);
                 break;
+            }
 
-            case 'container_create':
+            case 'container_create': {
                 commandResult = commands.containerCreate(options);
                 serverResult = new ServerResult(commandResult.result, commandResult.message);
                 break;
+            }
 
-            default:
+            default: {
                 response.sendStatus(400);
                 return;
+            }
 
         }
 
@@ -120,14 +125,16 @@ export const postFile = async (request: express.Request, response: express.Respo
 
             switch(command) {
 
-                case 'save':
+                case 'save': {
                     const file: formidable.File = files[0];
                     commandResult = commands.fileSave(directory, name, file);
                     serverResult = new ServerResult(commandResult.result, commandResult.message);
                     break;
+                }
 
-                default:
+                default: {
                     serverResult = new ServerResult(false, 'Wrong command');
+                }
 
             }
 
