@@ -1,13 +1,13 @@
 import fs from 'fs';
-import state from '../../state';
 import { SocketStream } from 'stream-socket.io';
+import target from './target';
 import { commandEvent, fileEvent } from '../event';
 
 const socketStream = new SocketStream();
 
 const broadcastFile = (path: string, name: string) => {
 
-    const sockets: SocketIOClient.Socket[] = Object.values(state.socketClients);
+    const sockets = target.getAllList();
 
     for(const socket of sockets) {
 
@@ -20,18 +20,19 @@ const broadcastFile = (path: string, name: string) => {
 
 };
 
+const broadcastToClients =  (arg: any) => {
+
+    const sockets = target.getClientList();
+
+    for(const socket of sockets) {
+
+        socket.emit(commandEvent, arg);
+
+    }
+
+};
+
 export default {
-
-    broadcastToClients: (arg: any) => {
-
-        const ooo: SocketIOClient.Socket[] = Object.values(state.socketClients);
-        for(const socket of ooo) {
-
-            socket.emit(commandEvent, arg);
-
-        }
-
-    },
-    broadcastFile: broadcastFile
-
+    broadcastFile: broadcastFile,
+    broadcastToClients: broadcastToClients
 };
