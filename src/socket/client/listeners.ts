@@ -1,8 +1,13 @@
-import { authEvent, requestAuthEvent, infoEvent, requestInfoEvent, joinEvent, commandEvent, messageEvent } from '../event';
+import fs from 'fs';
+import path from 'path';
+import { SocketStream } from 'stream-socket.io';
+import { authEvent, requestAuthEvent, infoEvent, requestInfoEvent, joinEvent, commandEvent, messageEvent, fileEvent } from '../event';
 import { parseJoinResponse } from './parsers';
 import commands from '../commands';
 import state from '../../state';
-import { print } from '../../utility';
+import { print, getDirectory } from '../../utility';
+
+const socketStream = new SocketStream();
 
 export const requestAuthListener = (socket: SocketIOClient.Socket, key: string) => {
 
@@ -64,6 +69,18 @@ export const commandListener = (socket: SocketIOClient.Socket) => {
     socket.on(commandEvent, (arg: any) => {
 
         commands.test(arg);
+
+    });
+
+};
+
+export const fileListener = (socket: SocketIOClient.Socket) => {
+
+    socketStream.on(socket, fileEvent, (readStream, id, options) => {
+
+        const target = path.join(getDirectory('public')!, options.name);
+        const fileStream = fs.createWriteStream(target);
+        readStream.pipe(fileStream);
 
     });
 

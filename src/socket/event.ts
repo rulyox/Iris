@@ -4,4 +4,5 @@ export const infoEvent = 'iris-info';
 export const requestInfoEvent = 'iris-request-info';
 export const joinEvent = 'iris-join';
 export const commandEvent = 'iris-command';
+export const fileEvent = 'iris-file';
 export const messageEvent = 'iris-message';

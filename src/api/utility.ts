@@ -1,6 +1,5 @@
 import express from 'express';
 import formidable from 'formidable';
-import state from '../state';
 
 export const parseForm = (request: express.Request): Promise<any> => {
     return new Promise((resolve, reject) => {
@@ -27,13 +26,4 @@ export const parseForm = (request: express.Request): Promise<any> => {
         } catch(error) { reject(error); }
 
     });
-};
-
-export const getDirectory = (type: string): string|undefined => {
-
-    if(type === 'image') return state.imageDirectory;
-    else if(type === 'private') return state.privateDirectory;
-    else if(type === 'public') return state.publicDirectory;
-    else return undefined;
-
 };

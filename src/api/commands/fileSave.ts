@@ -5,7 +5,7 @@ import state from '../../state';
 import execute from '../../execute';
 import CommandResult from './CommandResult';
 import broadcast from '../../socket/broadcast';
-import { getDirectory } from '../utility';
+import { getDirectory } from '../../utility';
 import { print } from '../../utility';
 
 const loadDockerImage = (path: string) => {
@@ -35,9 +35,10 @@ const fileSave = (directory: string, name: string, file: formidable.File): Comma
         // load docker image
         if(directory === 'image') loadDockerImage(newPath);
 
-    }
+        broadcast.broadcastToClients(name);
+        broadcast.broadcastFile(newPath, name);
 
-    broadcast.broadcastToClients(name);
+    }
 
     return new CommandResult(true, null);
 

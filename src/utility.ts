@@ -1,3 +1,5 @@
+import state from './state';
+
 const getTime = (): string => {
 
     const time = new Date();
@@ -16,5 +18,14 @@ const getTime = (): string => {
 export const print = (content: any) => {
 
     console.log(`${getTime().padEnd(20)}| ${content}`);
+
+};
+
+export const getDirectory = (type: string): string|undefined => {
+
+    if(type === 'image') return state.imageDirectory;
+    else if(type === 'private') return state.privateDirectory;
+    else if(type === 'public') return state.publicDirectory;
+    else return undefined;
 
 };
