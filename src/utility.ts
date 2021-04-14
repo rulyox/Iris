@@ -19,6 +19,7 @@ export const print = (type: string|undefined, content: any) => {
 
     let emoji = '';
     if(type === 'network') emoji = '🌐' + ' ';
+    else if(type === 'api') emoji = '🧑' + ' ';
     else if(type === 'done') emoji = '✔' + ' ';
     else if(type === 'error') emoji = '❌' + ' ';
 

@@ -69,7 +69,7 @@ export const postCommand = async (request: express.Request, response: express.Re
         let apiResult: APIResult;
         let serviceResult: ServiceResult;
 
-        print(undefined, `API : ${command}`);
+        print('api', `API Command : ${command}`);
 
         switch(command) {
 
@@ -135,7 +135,7 @@ export const postFile = async (request: express.Request, response: express.Respo
         let apiResult: APIResult;
         let serviceResult: ServiceResult;
 
-        print(undefined, `API File : ${command}`);
+        print('api', `API File : ${command}`);
 
         if(command !== undefined && (directory === 'image' || directory === 'private' || directory === 'public') && name !== undefined && files !== undefined && files.length === 1) {
 
@@ -161,6 +161,47 @@ export const postFile = async (request: express.Request, response: express.Respo
         }
 
         response.send(apiResult);
+
+    } catch(error) { next(error); }
+
+};
+
+/*
+file
+*/
+export const postView = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
+
+    try {
+
+        // parse request body
+        const command = request.body.command;
+        const password = request.body.password;
+
+        if(password !== state.password) {
+            response.sendStatus(401);
+            return;
+        }
+
+        // results
+        let result: any;
+
+        print('api', `API View : ${command}`);
+
+        switch(command) {
+
+            case 'file': {
+                result = services.view.file();
+                break;
+            }
+
+            default: {
+                response.sendStatus(400);
+                return;
+            }
+
+        }
+
+        response.send(result);
 
     } catch(error) { next(error); }
 
