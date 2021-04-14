@@ -1,46 +1,32 @@
-import fs from 'fs';
 import path from 'path';
-import formidable from 'formidable';
 import state from '../../state';
-import execute from '../../execute';
 import CommandResult from './CommandResult';
 import broadcast from '../../socket/broadcast';
-import { getDirectory } from '../../utility';
-import { print } from '../../utility';
+import {getDirectory, print} from '../../utility';
 
-const loadDockerImage = (path: string) => {
-
-    execute.execute(execute.command.dockerLoad(path))
-        .then((result) => print(undefined, result))
-        .catch((error) => print('error', error));
-
-};
-
-const fileSave = (directory: string, name: string, file: formidable.File): CommandResult => {
+const fileSave = (options: any): CommandResult => {
 
     if(!state.isConnected) return new CommandResult(false, 'Not connected to a network');
 
-    const oldPath = file.path;
+    if(options.directory !== undefined && options.name !== undefined) {
 
-    let newPath = getDirectory(directory);
+        let filePath = getDirectory(options.directory);
 
-    if(newPath !== undefined) {
+        if(filePath !== undefined) {
 
-        newPath = path.join(newPath, name);
+            filePath = path.join(filePath, options.name);
 
-        fs.renameSync(oldPath, newPath);
+            broadcast.broadcastFile(filePath, options.name);
 
-        print('done', `File saved : ${name}`);
+        }
 
-        // load docker image
-        if(directory === 'image') loadDockerImage(newPath);
+        return new CommandResult(true, null);
 
-        broadcast.broadcastToClients(name);
-        broadcast.broadcastFile(newPath, name);
+    } else {
+
+        return new CommandResult(false, 'Wrong option');
 
     }
-
-    return new CommandResult(true, null);
 
 };
 

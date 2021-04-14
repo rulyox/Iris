@@ -11,6 +11,8 @@ import { print } from '../../utility';
 network_create
 network_join
 network_leave
+file_save
+file_fetch
 container_create
 container_remove
 container_execute
@@ -31,6 +33,14 @@ container_execute
     "ip": "111.222.333.444",
     "port": "8081",
     "key": "o23e9nfd54gpz"
+  }
+}
+
+{
+  "command": "file_save",
+  "options": {
+    "directory": "image",
+    "name": "image.tar"
   }
 }
 
@@ -81,6 +91,12 @@ export const postCommand = async (request: express.Request, response: express.Re
                 break;
             }
 
+            case 'file_save': {
+                commandResult = commands.fileSave(options);
+                serverResult = new ServerResult(commandResult.result, commandResult.message);
+                break;
+            }
+
             case 'container_create': {
                 commandResult = commands.containerCreate(options);
                 serverResult = new ServerResult(commandResult.result, commandResult.message);
@@ -127,7 +143,7 @@ export const postFile = async (request: express.Request, response: express.Respo
 
                 case 'save': {
                     const file: formidable.File = files[0];
-                    commandResult = commands.fileSave(directory, name, file);
+                    commandResult = commands.file.upload(directory, name, file);
                     serverResult = new ServerResult(commandResult.result, commandResult.message);
                     break;
                 }
