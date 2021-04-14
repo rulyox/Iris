@@ -8,7 +8,7 @@ let socketServer: Server|undefined;
 
 const registerSocket = (socket: Socket) => {
 
-    print(`Socket ${socket.id} registered`);
+    print('network', `Socket ${socket.id} registered`);
 
     // request network key
     socket.emit(requestAuthEvent);
@@ -41,7 +41,7 @@ export const startServer = () => {
         cookie: false
     });
 
-    print(`Socket server running on port ${port}`);
+    print('network', `Socket server running on port ${port}`);
 
 };
 
@@ -52,7 +52,7 @@ export const endServer = () => {
         socketServer.close();
         socketServer = undefined;
 
-        print(`Socket server ended`);
+        print('network', `Socket server ended`);
 
     }
 

@@ -11,8 +11,8 @@ import { print } from '../../utility';
 const loadDockerImage = (path: string) => {
 
     execute.execute(execute.command.dockerLoad(path))
-        .then((result) => print(result))
-        .catch((error) => print(error));
+        .then((result) => print(undefined, result))
+        .catch((error) => print('error', error));
 
 };
 
@@ -30,7 +30,7 @@ const fileSave = (directory: string, name: string, file: formidable.File): Comma
 
         fs.renameSync(oldPath, newPath);
 
-        print(`File saved : ${name}`);
+        print('done', `File saved : ${name}`);
 
         // load docker image
         if(directory === 'image') loadDockerImage(newPath);

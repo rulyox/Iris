@@ -28,7 +28,7 @@ export const endClient = () => {
         socket.close();
         socket = undefined;
 
-        print(`Socket client ended`);
+        print('network', `Socket client ended`);
 
     }
 

@@ -12,8 +12,8 @@ const containerCreate = (options: any): CommandResult => {
         const image = options.image;
 
         execute.execute(execute.command.dockerRun(image))
-            .then((result) => print(result))
-            .catch((error) => print(error));
+            .then((result) => print(undefined, result))
+            .catch((error) => print('error', error));
 
         return new CommandResult(true, null);
 

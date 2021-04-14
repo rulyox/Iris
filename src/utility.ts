@@ -15,9 +15,14 @@ const getTime = (): string => {
 
 };
 
-export const print = (content: any) => {
+export const print = (type: string|undefined, content: any) => {
 
-    console.log(`${getTime().padEnd(20)}| ${content}`);
+    let emoji = '';
+    if(type === 'network') emoji = '🌐' + ' ';
+    else if(type === 'done') emoji = '✔' + ' ';
+    else if(type === 'error') emoji = '❌' + ' ';
+
+    console.log(`${getTime().padEnd(20)}| ${emoji}${content}`);
 
 };
 

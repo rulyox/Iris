@@ -46,7 +46,7 @@ export const infoListener = (socket: Socket) => {
                 const apiPort: number = result.apiPort;
                 const socketPort: number = result.socketPort;
 
-                print(`${name} joined network`);
+                print('network', `${name} joined network`);
 
                 state.addSocketClient(socket.id, socket, name, ip, apiPort, socketPort);
 
@@ -96,7 +96,7 @@ export const messageListener = (socket: Socket) => {
 
     socket.on(messageEvent, (arg: any) => {
 
-        print(`Message : ${arg}`);
+        print(undefined, `Message : ${arg}`);
 
     });
 
@@ -106,7 +106,7 @@ export const disconnectListener = (socket: Socket) => {
 
     socket.on('disconnect', (reason) => {
 
-        print(`Socket ${socket.id} disconnected : ${reason}`);
+        print('network', `Socket ${socket.id} disconnected : ${reason}`);
 
         state.removeSocketClient(socket.id);
 
