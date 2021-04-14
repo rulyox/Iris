@@ -1,4 +1,4 @@
-class CommandResult {
+class ServiceResult {
 
     private _result: boolean;
     private _message: string|null;
@@ -26,4 +26,4 @@ class CommandResult {
 
 }
 
-export default CommandResult;
+export default ServiceResult;

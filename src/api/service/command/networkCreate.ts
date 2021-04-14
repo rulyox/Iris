@@ -1,10 +1,10 @@
-import state from '../../state';
-import socket from '../../socket';
-import CommandResult from './CommandResult';
+import state from '../../../state';
+import socket from '../../../socket';
+import ServiceResult from '../ServiceResult';
 
-const networkCreate = (options: any): CommandResult => {
+const networkCreate = (options: any): ServiceResult => {
 
-    if(state.isConnected) return new CommandResult(false, 'Already connected to a network');
+    if(state.isConnected) return new ServiceResult(false, 'Already connected to a network');
 
     if(options?.config) {
 
@@ -25,17 +25,17 @@ const networkCreate = (options: any): CommandResult => {
             state.isGenesis = true;
             state.networkConfig = networkConfig;
 
-            return new CommandResult(true, null);
+            return new ServiceResult(true, null);
 
         } else {
 
-            return new CommandResult(false, 'Config has missing keys');
+            return new ServiceResult(false, 'Config has missing keys');
 
         }
 
     } else {
 
-        return new CommandResult(false, 'Wrong option');
+        return new ServiceResult(false, 'Wrong option');
 
     }
 

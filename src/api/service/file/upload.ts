@@ -2,13 +2,12 @@ import fs from 'fs';
 import path from 'path';
 import formidable from 'formidable';
 import state from '../../../state';
-import CommandResult from '../CommandResult';
-import { getDirectory } from '../../../utility';
-import { print } from '../../../utility';
+import ServiceResult from '../ServiceResult';
+import { getDirectory, print } from '../../../utility';
 
-const upload = (directory: string, name: string, file: formidable.File): CommandResult => {
+const upload = (directory: string, name: string, file: formidable.File): ServiceResult => {
 
-    if(!state.isConnected) return new CommandResult(false, 'Not connected to a network');
+    if(!state.isConnected) return new ServiceResult(false, 'Not connected to a network');
 
     const oldPath = file.path;
 
@@ -24,7 +23,7 @@ const upload = (directory: string, name: string, file: formidable.File): Command
 
     }
 
-    return new CommandResult(true, null);
+    return new ServiceResult(true, null);
 
 };
 

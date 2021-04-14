@@ -1,8 +1,8 @@
 import express from 'express';
 import formidable from 'formidable';
-import commands from '../commands';
-import CommandResult from '../commands/CommandResult';
-import ServerResult from './ServerResult';
+import services from '../service';
+import ServiceResult from '../service/ServiceResult';
+import APIResult from './APIResult';
 import state from '../../state';
 import { parseForm } from '../utility';
 import { print } from '../../utility';
@@ -66,40 +66,40 @@ export const postCommand = async (request: express.Request, response: express.Re
         }
 
         // results
-        let serverResult: ServerResult;
-        let commandResult: CommandResult;
+        let apiResult: APIResult;
+        let serviceResult: ServiceResult;
 
         print(undefined, `API : ${command}`);
 
         switch(command) {
 
             case 'network_create': {
-                commandResult = commands.networkCreate(options);
-                serverResult = new ServerResult(commandResult.result, commandResult.message);
+                serviceResult = services.command.networkCreate(options);
+                apiResult = new APIResult(serviceResult.result, serviceResult.message);
                 break;
             }
 
             case 'network_join': {
-                commandResult = commands.networkJoin(options);
-                serverResult = new ServerResult(commandResult.result, commandResult.message);
+                serviceResult = services.command.networkJoin(options);
+                apiResult = new APIResult(serviceResult.result, serviceResult.message);
                 break;
             }
 
             case 'network_leave': {
-                commandResult = commands.networkLeave();
-                serverResult = new ServerResult(commandResult.result, commandResult.message);
+                serviceResult = services.command.networkLeave();
+                apiResult = new APIResult(serviceResult.result, serviceResult.message);
                 break;
             }
 
             case 'file_save': {
-                commandResult = commands.fileSave(options);
-                serverResult = new ServerResult(commandResult.result, commandResult.message);
+                serviceResult = services.command.fileSave(options);
+                apiResult = new APIResult(serviceResult.result, serviceResult.message);
                 break;
             }
 
             case 'container_create': {
-                commandResult = commands.containerCreate(options);
-                serverResult = new ServerResult(commandResult.result, commandResult.message);
+                serviceResult = services.command.containerCreate(options);
+                apiResult = new APIResult(serviceResult.result, serviceResult.message);
                 break;
             }
 
@@ -110,15 +110,15 @@ export const postCommand = async (request: express.Request, response: express.Re
 
         }
 
-        response.send(serverResult);
+        response.send(apiResult);
 
     } catch(error) { next(error); }
 
 };
 
 /*
-file_save
-file_fetch
+upload
+download
 */
 export const postFile = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
 
@@ -132,8 +132,8 @@ export const postFile = async (request: express.Request, response: express.Respo
         const files: formidable.File[] = parsedForm.files;
 
         // results
-        let serverResult: ServerResult;
-        let commandResult: CommandResult;
+        let apiResult: APIResult;
+        let serviceResult: ServiceResult;
 
         print(undefined, `API File : ${command}`);
 
@@ -141,26 +141,26 @@ export const postFile = async (request: express.Request, response: express.Respo
 
             switch(command) {
 
-                case 'save': {
+                case 'upload': {
                     const file: formidable.File = files[0];
-                    commandResult = commands.file.upload(directory, name, file);
-                    serverResult = new ServerResult(commandResult.result, commandResult.message);
+                    serviceResult = services.file.upload(directory, name, file);
+                    apiResult = new APIResult(serviceResult.result, serviceResult.message);
                     break;
                 }
 
                 default: {
-                    serverResult = new ServerResult(false, 'Wrong command');
+                    apiResult = new APIResult(false, 'Wrong command');
                 }
 
             }
 
         } else {
 
-            serverResult = new ServerResult(false, 'Wrong request');
+            apiResult = new APIResult(false, 'Wrong request');
 
         }
 
-        response.send(serverResult);
+        response.send(apiResult);
 
     } catch(error) { next(error); }
 

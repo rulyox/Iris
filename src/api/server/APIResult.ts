@@ -1,4 +1,4 @@
-class ServerResult {
+class APIResult {
 
     readonly result: boolean;
     readonly message: string|null;
@@ -10,4 +10,4 @@ class ServerResult {
 
 }
 
-export default ServerResult;
+export default APIResult;
