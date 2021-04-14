@@ -19,7 +19,7 @@ const upload = (directory: string, name: string, file: formidable.File): Service
 
         fs.renameSync(oldPath, newPath);
 
-        print('done', `File saved : ${name}`);
+        print('job', `File saved : ${name}`);
 
     }
 

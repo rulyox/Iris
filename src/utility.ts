@@ -21,7 +21,7 @@ export const print = (type: string|undefined, content: any) => {
     let highlight = '';
     if(type === 'network') highlight = chalk.yellow('NETWORK') + ' ';
     else if(type === 'api') highlight = chalk.blue('API') + ' ';
-    else if(type === 'done') highlight = chalk.green('DONE') + ' ';
+    else if(type === 'job') highlight = chalk.green('JOB') + ' ';
     else if(type === 'error') highlight = chalk.red('ERROR') + ' ';
 
     console.log(`${getTime().padEnd(20)}| ${highlight}${content}`);

@@ -84,6 +84,8 @@ export const fileListener = (socket: Socket) => {
 
     socketStream.on(socket, fileEvent, (readStream, id, options) => {
 
+        print('job', `Receiving file : ${options.name}`);
+
         const target = path.join(getDirectory('public')!, options.name);
         const fileStream = fs.createWriteStream(target);
         readStream.pipe(fileStream);
