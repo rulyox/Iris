@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import state from './state';
 
 const getTime = (): string => {
@@ -17,13 +18,13 @@ const getTime = (): string => {
 
 export const print = (type: string|undefined, content: any) => {
 
-    let emoji = '';
-    if(type === 'network') emoji = '🌐' + ' ';
-    else if(type === 'api') emoji = '🧑' + ' ';
-    else if(type === 'done') emoji = '✔' + ' ';
-    else if(type === 'error') emoji = '❌' + ' ';
+    let highlight = '';
+    if(type === 'network') highlight = chalk.yellow('NETWORK') + ' ';
+    else if(type === 'api') highlight = chalk.blue('API') + ' ';
+    else if(type === 'done') highlight = chalk.green('DONE') + ' ';
+    else if(type === 'error') highlight = chalk.red('ERROR') + ' ';
 
-    console.log(`${getTime().padEnd(20)}| ${emoji}${content}`);
+    console.log(`${getTime().padEnd(20)}| ${highlight}${content}`);
 
 };
 

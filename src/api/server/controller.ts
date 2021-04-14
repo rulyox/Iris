@@ -69,7 +69,7 @@ export const postCommand = async (request: express.Request, response: express.Re
         let apiResult: APIResult;
         let serviceResult: ServiceResult;
 
-        print('api', `API Command : ${command}`);
+        print('api', `Command : ${command}`);
 
         switch(command) {
 
@@ -135,7 +135,7 @@ export const postFile = async (request: express.Request, response: express.Respo
         let apiResult: APIResult;
         let serviceResult: ServiceResult;
 
-        print('api', `API File : ${command}`);
+        print('api', `File : ${command}`);
 
         if(command !== undefined && (directory === 'image' || directory === 'private' || directory === 'public') && name !== undefined && files !== undefined && files.length === 1) {
 
@@ -185,7 +185,7 @@ export const postView = async (request: express.Request, response: express.Respo
         // results
         let result: any;
 
-        print('api', `API View : ${command}`);
+        print('api', `View : ${command}`);
 
         switch(command) {
 
