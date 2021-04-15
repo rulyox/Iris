@@ -50,7 +50,7 @@ export const joinListener = (socket: SocketIOClient.Socket) => {
                 const networkConfig: any = result.networkConfig;
                 const id: string = result.id;
 
-                print('network', `Joined network ${state.networkConfig.name}`);
+                print('network', `Joined network ${networkConfig.name}`);
 
                 state.networkConfig = networkConfig;
                 state.addSocketServer(id, socket);
