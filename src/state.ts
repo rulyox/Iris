@@ -108,6 +108,10 @@ class State {
         return this._networkMap;
     }
 
+    set networkMap(value: any) {
+        this._networkMap = value;
+    }
+
     get socketClients(): any {
         return this._socketClients;
     }

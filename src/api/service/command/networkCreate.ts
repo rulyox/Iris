@@ -24,6 +24,15 @@ const networkCreate = (options: any): ServiceResult => {
             state.isConnected = true;
             state.isGenesis = true;
             state.networkConfig = networkConfig;
+            state.networkMap[state.id] = {
+                name: state.name,
+                ip: state.ip,
+                apiPort: state.apiPort,
+                socketPort: state.socketPort,
+                role: ['genesis', 'master'],
+                servers: [],
+                clients: []
+            };
 
             return new ServiceResult(true, null);
 
