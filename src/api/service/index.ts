@@ -5,6 +5,7 @@ import fileSave from './command/fileSave';
 import containerCreate from './command/containerCreate';
 import upload from './file/upload';
 import file from './view/file';
+import map from './view/map';
 
 export default {
     command: {
@@ -18,6 +19,7 @@ export default {
         upload: upload
     },
     view: {
-        file: file
+        file: file,
+        map: map
     }
 };

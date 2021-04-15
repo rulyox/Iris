@@ -50,9 +50,6 @@ export const joinListener = (socket: SocketIOClient.Socket) => {
 
             state.addSocketServer(socket.id, socket);
 
-            // debug
-            console.log(state.networkConfig);
-
         } else {
 
             socket.emit(messageEvent, result.message);

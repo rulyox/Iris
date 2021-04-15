@@ -168,6 +168,7 @@ export const postFile = async (request: express.Request, response: express.Respo
 
 /*
 file
+map
 */
 export const postView = async (request: express.Request, response: express.Response, next: express.NextFunction) => {
 
@@ -191,6 +192,11 @@ export const postView = async (request: express.Request, response: express.Respo
 
             case 'file': {
                 result = services.view.file();
+                break;
+            }
+
+            case 'map': {
+                result = services.view.map();
                 break;
             }
 

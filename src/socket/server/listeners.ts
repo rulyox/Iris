@@ -54,9 +54,6 @@ export const infoListener = (socket: Socket) => {
                     networkConfig: state.networkConfig
                 });
 
-                // debug
-                console.log(state.networkMap);
-
             }
 
         } else {
