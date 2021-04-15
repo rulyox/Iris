@@ -14,6 +14,6 @@ export const startServer = () => {
 
     app.use(router);
 
-    app.listen(port, () => print(undefined, `${state.name} API server running on port ${port}`));
+    app.listen(port, () => print(undefined, `Iris API server running\nName : ${state.name}\nPort : ${port}\nID : ${state.id}`));
 
 };

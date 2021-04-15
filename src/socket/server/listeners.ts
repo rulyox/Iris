@@ -39,8 +39,9 @@ export const infoListener = (socket: Socket) => {
 
         if(result.result) {
 
-            if(result.name !== null && result.ip !== null && result.apiPort !== null && result.socketPort !== null) {
+            if(result.id !== null && result.name !== null && result.ip !== null && result.apiPort !== null && result.socketPort !== null) {
 
+                const id: string = result.id;
                 const name: string = result.name;
                 const ip: string = result.ip;
                 const apiPort: number = result.apiPort;
@@ -48,10 +49,11 @@ export const infoListener = (socket: Socket) => {
 
                 print('network', `${name} joined network`);
 
-                state.addSocketClient(socket.id, socket, name, ip, apiPort, socketPort);
+                state.addSocketClient(id, socket, name, ip, apiPort, socketPort);
 
                 socket.emit(joinEvent, {
-                    networkConfig: state.networkConfig
+                    networkConfig: state.networkConfig,
+                    id: state.id
                 });
 
             }

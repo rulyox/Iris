@@ -1,5 +1,6 @@
 import fs from 'fs';
 import yargs from 'yargs';
+import { v4 as uuid } from 'uuid';
 import state from './state';
 
 const parseArguments = (): {
@@ -33,6 +34,7 @@ const parseArguments = (): {
 
 const setState = (name: string, ip: string, api: number, socket: number, password: string) => {
 
+    state.id = uuid();
     state.name = name;
     state.ip = ip;
     state.apiPort = api;

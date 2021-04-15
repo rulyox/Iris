@@ -26,6 +26,7 @@ export const requestInfoListener = (socket: SocketIOClient.Socket) => {
     socket.on(requestInfoEvent, () => {
 
         socket.emit(infoEvent, {
+            id: state.id,
             name: state.name,
             ip: state.ip,
             apiPort: state.apiPort,
@@ -44,11 +45,17 @@ export const joinListener = (socket: SocketIOClient.Socket) => {
 
         if(result.result) {
 
-            state.networkConfig = result.networkConfig;
+            if(result.id !== null) {
 
-            print('network', `Joined network ${state.networkConfig.name}`);
+                const networkConfig: any = result.networkConfig;
+                const id: string = result.id;
 
-            state.addSocketServer(socket.id, socket);
+                print('network', `Joined network ${state.networkConfig.name}`);
+
+                state.networkConfig = networkConfig;
+                state.addSocketServer(id, socket);
+
+            }
 
         } else {
 

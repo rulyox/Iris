@@ -19,6 +19,7 @@ class State {
         return this.instance;
     }
 
+    private _id = '';
     private _name = '';
     private _ip = '';
     private _apiPort = 0;
@@ -30,6 +31,14 @@ class State {
     private _networkMap: any = {};
     private _socketClients: any = {};
     private _socketServers: any = {};
+
+    get id(): string {
+        return this._id;
+    }
+
+    set id(value: string) {
+        this._id = value;
+    }
 
     get name(): string {
         return this._name;

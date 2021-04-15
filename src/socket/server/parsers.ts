@@ -36,6 +36,7 @@ export const parseAuth = (arg: any): {
 export const parseInfo = (arg: any): {
     result: boolean,
     message: string|null,
+    id: string|null,
     name: string|null,
     ip: string|null,
     apiPort: number|null,
@@ -44,19 +45,19 @@ export const parseInfo = (arg: any): {
 
     if(typeof arg === 'object' && !(arg instanceof Array)) {
 
-        if(arg?.name && arg?.ip && arg?.apiPort && arg?.socketPort) {
+        if(arg.id !== undefined && arg.name !== undefined && arg.ip !== undefined && arg.apiPort !== undefined && arg.socketPort !== undefined) {
 
-            return { result: true, message: null, name: arg.name, ip: arg.ip, apiPort: arg.apiPort, socketPort: arg.socketPort };
+            return { result: true, message: null, id: arg.id, name: arg.name, ip: arg.ip, apiPort: arg.apiPort, socketPort: arg.socketPort };
 
         } else {
 
-            return { result: false, message: 'Info Error : Do not have name', name: null, ip: null, apiPort: null, socketPort: null };
+            return { result: false, message: 'Info Error : Do not have name', id: null, name: null, ip: null, apiPort: null, socketPort: null };
 
         }
 
     } else {
 
-        return { result: false, message: 'Info Error : Not an object', name: null, ip: null, apiPort: null, socketPort: null };
+        return { result: false, message: 'Info Error : Not an object', id: null, name: null, ip: null, apiPort: null, socketPort: null };
 
     }
 
