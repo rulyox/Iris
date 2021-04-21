@@ -29,6 +29,7 @@ class State {
     private _isGenesis = false;
     private _networkConfig: any = {};
     private _networkMap: any = {};
+    private _socketIdMap: any = {};
     private _socketClients: any = {};
     private _socketServers: any = {};
 
@@ -117,18 +118,32 @@ class State {
     }
 
     public addSocketClient(id: string, socket: Socket, name: string, ip: string, apiPort: number, socketPort: number) {
+
+        const socketId = socket.id;
+
         this._socketClients[id] = socket;
+
         this._networkMap[id] = {
             name: name,
             ip: ip,
             apiPort: apiPort,
             socketPort: socketPort
         };
+
+        this._socketIdMap[socketId] = id;
+
     }
 
-    public removeSocketClient(id: string) {
+    public removeSocketClient(socketId: string) {
+
+        const id = this._socketIdMap[socketId];
+
         delete this._socketClients[id];
+
         delete this._networkMap[id];
+
+        delete this._socketIdMap[socketId];
+
     }
 
     get socketServers(): any {
