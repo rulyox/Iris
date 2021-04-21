@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import { SocketStream } from 'stream-socket.io';
 import { authEvent, requestAuthEvent, infoEvent, requestInfoEvent, joinEvent, commandEvent, messageEvent, fileEvent } from '../event';
-import { parseJoinResponse } from './parsers';
 import commands from '../commands';
 import state from '../../state';
 import { print, getDirectory } from '../../utility';
@@ -41,28 +40,15 @@ export const joinListener = (socket: SocketIOClient.Socket) => {
 
     socket.on(joinEvent, (arg: any) => {
 
-        const result = parseJoinResponse(arg);
+        const networkConfig: any = arg.networkConfig;
+        const networkMap: any = arg.networkMap;
+        const id: string = arg.id;
 
-        if(result.result) {
+        print('network', `Joined network ${networkConfig.name}`);
 
-            if(result.id !== null) {
-
-                const networkConfig: any = result.networkConfig;
-                const id: string = result.id;
-
-                print('network', `Joined network ${networkConfig.name}`);
-
-                state.networkConfig = networkConfig;
-                state.addSocketServer(id, socket);
-
-            }
-
-        } else {
-
-            socket.emit(messageEvent, result.message);
-            socket.disconnect();
-
-        }
+        state.networkConfig = networkConfig;
+        state.networkMap = networkMap;
+        state.addSocketServer(id, socket);
 
     });
 

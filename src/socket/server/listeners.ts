@@ -53,6 +53,7 @@ export const infoListener = (socket: Socket) => {
 
                 socket.emit(joinEvent, {
                     networkConfig: state.networkConfig,
+                    networkMap: state.networkMap,
                     id: state.id
                 });
 
