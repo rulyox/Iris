@@ -127,7 +127,8 @@ class State {
             name: name,
             ip: ip,
             apiPort: apiPort,
-            socketPort: socketPort
+            socketPort: socketPort,
+            role: 'slave'
         };
 
         this._socketIdMap[socketId] = id;

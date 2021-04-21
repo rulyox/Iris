@@ -29,9 +29,7 @@ const networkCreate = (options: any): ServiceResult => {
                 ip: state.ip,
                 apiPort: state.apiPort,
                 socketPort: state.socketPort,
-                role: ['genesis', 'master'],
-                servers: [],
-                clients: []
+                role: 'master'
             };
 
             return new ServiceResult(true, null);
