@@ -108,9 +108,15 @@ export const disconnectListener = (socket: Socket) => {
 
     socket.on('disconnect', (reason) => {
 
-        print('network', `Socket ${socket.id} disconnected : ${reason}`);
+        const socketId = socket.id;
+        const id = state.getIdFromSocketId(socketId);
+        const name = state.networkMap[id].name;
 
-        state.removeSocketClient(socket.id);
+        print('network', `Socket ${socketId} disconnected : ${reason}`);
+
+        print('network', `${name} left network`);
+
+        state.removeSocketClient(socketId);
 
     });
 

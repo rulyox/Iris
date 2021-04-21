@@ -113,6 +113,10 @@ class State {
         this._networkMap = value;
     }
 
+    public getIdFromSocketId(socketId: string): string {
+        return this._socketIdMap[socketId];
+    }
+
     get socketClients(): any {
         return this._socketClients;
     }
