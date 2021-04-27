@@ -32,8 +32,11 @@ const getById = (idList: string[]): any[] => {
 
 };
 
-export default {
-    getAllList: getAllList,
-    getClientList: getClientList,
-    getById: getById
+export const getTargetSockets = (target: any): any[] => {
+
+    if(target === 'all') return getAllList();
+    else if(target === 'client') return getClientList();
+    else if(Array.isArray(target)) return getById(target);
+    else return [];
+
 };
