@@ -100,7 +100,7 @@ export const postCommand = async (request: express.Request, response: express.Re
             }
 
             case 'container_load': {
-                serviceResult = services.command.containerCreate(options);
+                serviceResult = services.command.containerLoad(options);
                 apiResult = new APIResult(serviceResult.result, serviceResult.message);
                 break;
             }
