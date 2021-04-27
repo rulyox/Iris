@@ -8,7 +8,7 @@ const fileSave = (options: any): ServiceResult => {
 
     if(!state.isConnected) return new ServiceResult(false, 'Not connected to a network');
 
-    if(options.directory !== undefined && options.name !== undefined) {
+    if(options.directory !== undefined && options.name !== undefined && options.target !== undefined) {
 
         let filePath = getDirectory(options.directory);
 
@@ -16,7 +16,7 @@ const fileSave = (options: any): ServiceResult => {
 
             filePath = path.join(filePath, options.name);
 
-            broadcast.broadcastFile(filePath, options.name);
+            broadcast.broadcastFile(filePath, options.name, options.target);
 
         }
 

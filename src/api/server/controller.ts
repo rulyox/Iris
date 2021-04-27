@@ -39,6 +39,7 @@ container_execute
 {
   "command": "file_save",
   "options": {
+    "target": "all",
     "directory": "image",
     "name": "image.tar"
   }

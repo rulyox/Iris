@@ -5,9 +5,21 @@ import { commandEvent, fileEvent } from '../event';
 
 const socketStream = new SocketStream();
 
-const broadcastFile = (path: string, name: string) => {
+const broadcastFile = (path: string, name: string, targetSockets: any) => {
 
-    const sockets = target.getAllList();
+    let sockets = [];
+
+    if(targetSockets === 'all') {
+
+        sockets = target.getAllList();
+
+    } else if(targetSockets.isArray()) {
+
+        sockets = [];
+
+    }
+
+    console.log(sockets);
 
     for(const socket of sockets) {
 
