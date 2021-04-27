@@ -1,14 +1,14 @@
 import fs from 'fs';
 import { SocketStream } from 'stream-socket.io';
 import { getTargetSockets } from './target';
-import { fileEvent } from '../event';
+import { fileEvent, commandEvent } from '../event';
 import { print } from '../../utility';
 
 const socketStream = new SocketStream();
 
-const broadcastFile = (path: string, name: string, targetSockets: any) => {
+const broadcastFile = (path: string, name: string, target: any) => {
 
-    const sockets: any[] = getTargetSockets(targetSockets);
+    const sockets: any[] = getTargetSockets(target);
 
     print('job', `Broadcasting file : ${name}`);
 
@@ -23,6 +23,21 @@ const broadcastFile = (path: string, name: string, targetSockets: any) => {
 
 };
 
+const broadcastCommand = (command: string, target: any) => {
+
+    const sockets: any[] = getTargetSockets(target);
+
+    print('job', `Broadcasting command : ${command}`);
+
+    for(const socket of sockets) {
+
+        socket.emit(commandEvent, { command: command });
+
+    }
+
+};
+
 export default {
-    broadcastFile: broadcastFile
+    broadcastFile: broadcastFile,
+    broadcastCommand: broadcastCommand
 };

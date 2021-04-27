@@ -13,6 +13,7 @@ network_join
 network_leave
 file_save
 file_fetch
+container_load
 container_create
 container_remove
 container_execute
@@ -94,6 +95,12 @@ export const postCommand = async (request: express.Request, response: express.Re
 
             case 'file_save': {
                 serviceResult = services.command.fileSave(options);
+                apiResult = new APIResult(serviceResult.result, serviceResult.message);
+                break;
+            }
+
+            case 'container_load': {
+                serviceResult = services.command.containerCreate(options);
                 apiResult = new APIResult(serviceResult.result, serviceResult.message);
                 break;
             }
