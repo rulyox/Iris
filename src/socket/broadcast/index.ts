@@ -15,7 +15,7 @@ const broadcastFile = (path: string, name: string, targetSockets: any) => {
 
     } else if(targetSockets.isArray()) {
 
-        sockets = [];
+        sockets = target.getById(targetSockets);
 
     }
 

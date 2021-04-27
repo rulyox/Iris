@@ -16,7 +16,24 @@ const getClientList = (): SocketIOClient.Socket[] => {
 
 };
 
+const getById = (idList: string[]): any[] => {
+
+    const sockets: any[] = [];
+    const socketList = { ...state.socketClients, ...state.socketServers };
+
+    for(const id of idList) {
+
+        const socket = socketList[id];
+        if(socket !== undefined) sockets.push(socket);
+
+    }
+
+    return sockets;
+
+};
+
 export default {
     getAllList: getAllList,
-    getClientList: getClientList
+    getClientList: getClientList,
+    getById: getById
 };
