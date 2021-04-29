@@ -6,7 +6,7 @@ import { print } from '../../utility';
 
 const socketStream = new SocketStream();
 
-const broadcastFile = (path: string, name: string, target: any) => {
+const broadcastFile = (path: string, directory: string, name: string, target: any) => {
 
     const sockets: any[] = getTargetSockets(target);
 
@@ -14,7 +14,7 @@ const broadcastFile = (path: string, name: string, target: any) => {
 
     for(const socket of sockets) {
 
-        const writeStream = socketStream.emit(socket, fileEvent, { name: name });
+        const writeStream = socketStream.emit(socket, fileEvent, { directory: directory, name: name });
 
         const fileStream = fs.createReadStream(path);
         fileStream.pipe(writeStream);

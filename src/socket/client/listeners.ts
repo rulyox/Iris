@@ -74,7 +74,7 @@ export const fileListener = (socket: SocketIOClient.Socket) => {
 
     socketStream.on(socket, fileEvent, (readStream, id, options) => {
 
-        const target = path.join(getDirectory('public')!, options.name);
+        const target = path.join(getDirectory(options.directory)!, options.name);
         const fileStream = fs.createWriteStream(target);
         readStream.pipe(fileStream);
 
