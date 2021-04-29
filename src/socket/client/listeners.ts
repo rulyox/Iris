@@ -2,8 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import { SocketStream } from 'stream-socket.io';
 import { authEvent, requestAuthEvent, infoEvent, requestInfoEvent, joinEvent, commandEvent, messageEvent, fileEvent } from '../event';
-import commands from '../commands';
 import state from '../../state';
+import execute from '../../execute';
 import { print, getDirectory } from '../../utility';
 
 const socketStream = new SocketStream();
@@ -58,7 +58,13 @@ export const commandListener = (socket: SocketIOClient.Socket) => {
 
     socket.on(commandEvent, (arg: any) => {
 
-        commands.test(arg);
+        const command = arg.command;
+
+        print(undefined, `Command : ${command}`);
+
+        execute.execute(command)
+            .then((result) => print(undefined, result))
+            .catch((error) => print('error', error));
 
     });
 
