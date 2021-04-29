@@ -1,14 +1,8 @@
-import fs from 'fs';
-import path from 'path';
 import { Socket } from 'socket.io';
-import { SocketStream } from 'stream-socket.io';
-import { authEvent, infoEvent, requestInfoEvent, messageEvent, joinEvent, commandEvent, fileEvent } from '../event';
+import { authEvent, infoEvent, requestInfoEvent, messageEvent, joinEvent } from '../event';
 import { parseAuth, parseInfo } from './parsers';
 import state from '../../state';
-import execute from '../../execute';
-import { print, getDirectory } from '../../utility';
-
-const socketStream = new SocketStream();
+import { print } from '../../utility';
 
 export const authListener = (socket: Socket) => {
 
@@ -65,46 +59,6 @@ export const infoListener = (socket: Socket) => {
             socket.disconnect();
 
         }
-
-    });
-
-};
-
-export const commandListener = (socket: Socket) => {
-
-    socket.on(commandEvent, (arg: any) => {
-
-        const command = arg.command;
-
-        print(undefined, `Command : ${command}`);
-
-        execute.execute(command)
-            .then((result) => print(undefined, result))
-            .catch((error) => print('error', error));
-
-    });
-
-};
-
-export const fileListener = (socket: Socket) => {
-
-    socketStream.on(socket, fileEvent, (readStream, id, options) => {
-
-        print('job', `Receiving file : ${options.name}`);
-
-        const target = path.join(getDirectory(options.directory)!, options.name);
-        const fileStream = fs.createWriteStream(target);
-        readStream.pipe(fileStream);
-
-    });
-
-};
-
-export const messageListener = (socket: Socket) => {
-
-    socket.on(messageEvent, (arg: any) => {
-
-        print(undefined, `Message : ${arg}`);
 
     });
 

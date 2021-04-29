@@ -1,7 +1,7 @@
 import socketClient from 'socket.io-client';
-import { requestAuthListener, requestInfoListener, joinListener, commandListener, fileListener, messageListener } from './listeners';
-import state from '../../state';
-import { print } from '../../utility';
+import { requestAuthListener, requestInfoListener, joinListener, commandListener, fileListener, messageListener } from './listener';
+import state from '../state';
+import { print } from '../utility';
 
 let socket: SocketIOClient.Socket|undefined;
 

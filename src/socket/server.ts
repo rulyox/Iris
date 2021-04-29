@@ -1,8 +1,8 @@
 import { Socket, Server } from 'socket.io';
-import { requestAuthEvent } from '../event';
-import { authListener, infoListener, commandListener, fileListener, messageListener, disconnectListener } from './listeners';
-import state from '../../state';
-import { print } from '../../utility';
+import { requestAuthEvent } from './event';
+import { authListener, infoListener, commandListener, fileListener, messageListener, disconnectListener } from './listener';
+import state from '../state';
+import { print } from '../utility';
 
 let socketServer: Server|undefined;
 
