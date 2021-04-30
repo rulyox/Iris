@@ -15,7 +15,7 @@ const containerLoad = (options: any): ServiceResult => {
 
         if(filePath !== undefined) {
 
-            filePath = path.join(filePath, options.image);
+            filePath = path.posix.join(filePath, options.image);
 
             const command = execute.command.dockerLoad(filePath);
 

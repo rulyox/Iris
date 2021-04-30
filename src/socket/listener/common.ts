@@ -30,7 +30,7 @@ export const fileListener = (socket: Socket|SocketIOClient.Socket) => {
 
         print('job', `Receiving file : ${options.name}`);
 
-        const target = path.join(getDirectory(options.directory)!, options.name);
+        const target = path.posix.join(getDirectory(options.directory)!, options.name);
         const fileStream = fs.createWriteStream(target);
         readStream.pipe(fileStream);
 

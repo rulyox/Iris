@@ -15,7 +15,7 @@ const upload = (directory: string, name: string, file: formidable.File): Service
 
     if(newPath !== undefined) {
 
-        newPath = path.join(newPath, name);
+        newPath = path.posix.join(newPath, name);
 
         fs.renameSync(oldPath, newPath);
 

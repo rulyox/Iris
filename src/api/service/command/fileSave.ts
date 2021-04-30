@@ -14,7 +14,7 @@ const fileSave = (options: any): ServiceResult => {
 
         if(filePath !== undefined) {
 
-            filePath = path.join(filePath, options.name);
+            filePath = path.posix.join(filePath, options.name);
 
             broadcast.broadcastFile(filePath, options.directory, options.name, options.target);
 
