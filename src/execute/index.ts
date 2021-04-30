@@ -1,10 +1,11 @@
 import { execute } from './execute';
-import { dockerLoad, dockerRun } from './command';
+import { dockerLoad, dockerRun, dockerRm } from './command';
 
 export default {
     execute: execute,
     command: {
         dockerLoad: dockerLoad,
-        dockerRun: dockerRun
+        dockerRun: dockerRun,
+        dockerRm: dockerRm
     }
 };

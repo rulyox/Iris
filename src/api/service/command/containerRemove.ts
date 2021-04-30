@@ -3,13 +3,13 @@ import execute from '../../../execute';
 import ServiceResult from '../ServiceResult';
 import broadcast from '../../../socket/broadcast';
 
-const containerCreate = (options: any): ServiceResult => {
+const containerRemove = (options: any): ServiceResult => {
 
     if(!state.isConnected) return new ServiceResult(false, 'Not connected to a network');
 
-    if(options.image !== undefined && options.name !== undefined && options.target !== undefined) {
+    if(options.name !== undefined && options.target !== undefined) {
 
-        const command = execute.command.dockerRun(options.image, options.name);
+        const command = execute.command.dockerRm(options.name);
 
         broadcast.broadcastCommand(command, options.target);
 
@@ -23,4 +23,4 @@ const containerCreate = (options: any): ServiceResult => {
 
 };
 
-export default containerCreate;
+export default containerRemove;

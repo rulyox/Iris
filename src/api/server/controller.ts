@@ -111,6 +111,12 @@ export const postCommand = async (request: express.Request, response: express.Re
                 break;
             }
 
+            case 'container_remove': {
+                serviceResult = services.command.containerRemove(options);
+                apiResult = new APIResult(serviceResult.result, serviceResult.message);
+                break;
+            }
+
             default: {
                 response.sendStatus(400);
                 return;

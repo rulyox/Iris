@@ -4,6 +4,7 @@ import networkLeave from './command/networkLeave';
 import fileSave from './command/fileSave';
 import containerLoad from './command/containerLoad';
 import containerCreate from './command/containerCreate';
+import containerRemove from './command/containerRemove';
 import upload from './file/upload';
 import file from './view/file';
 import map from './view/map';
@@ -15,7 +16,8 @@ export default {
         networkLeave: networkLeave,
         fileSave: fileSave,
         containerLoad: containerLoad,
-        containerCreate: containerCreate
+        containerCreate: containerCreate,
+        containerRemove: containerRemove
     },
     file: {
         upload: upload
