@@ -6,11 +6,11 @@ const networkCreate = (options: any): ServiceResult => {
 
     if(state.isConnected) return new ServiceResult(false, 'Already connected to a network');
 
-    if(options?.config) {
+    if(options.config !== undefined) {
 
         const config = options.config;
 
-        if(config?.name && config?.mode && config?.key) {
+        if(config.name !== undefined && config.mode !== undefined && config.key !== undefined) {
 
             const networkConfig = {
                 name: config.name,

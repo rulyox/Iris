@@ -6,7 +6,7 @@ const networkJoin = (options: any): ServiceResult => {
 
     if(state.isConnected) return new ServiceResult(false, 'Already connected to a network');
 
-    if(options?.ip && options?.port && options?.key) {
+    if(options.ip !== undefined && options.port !== undefined && options.key !== undefined) {
 
         const ip = options.ip;
         const port = options.port;

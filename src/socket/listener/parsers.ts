@@ -7,7 +7,7 @@ export const parseAuth = (arg: any): {
 
     if(typeof arg === 'object' && !(arg instanceof Array)) {
 
-        if(arg?.key) {
+        if(arg.key !== undefined) {
 
             if(state.networkConfig.key === arg.key) {
 
