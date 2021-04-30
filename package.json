@@ -2,12 +2,12 @@
   "name": "iris-net",
   "version": "0.0.1",
   "description": "A node for Iris Network",
-  "main": "iris.ts",
+  "main": "index.ts",
   "author": "rulyox",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "start": "node build/iris.js",
+    "start": "node build/index.js",
     "lint": "eslint src/**"
   },
   "dependencies": {
