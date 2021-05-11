@@ -7,12 +7,12 @@ RUN echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.g
 RUN apt-get update
 RUN apt-get install -y docker-ce docker-ce-cli containerd.io
 
-RUN curl -fsSL https://deb.nodesource.com/setup_12.x | bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -y nodejs
 RUN npm install -g npm
 
 WORKDIR /iris
-COPY ./app .
+COPY . .
 
 RUN npm install
 RUN npm run build
