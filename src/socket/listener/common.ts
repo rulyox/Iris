@@ -17,7 +17,7 @@ export const commandListener = (socket: Socket|SocketIOClient.Socket) => {
         print(undefined, `Command : ${command}`);
 
         execute.execute(command)
-            .then((result) => print(undefined, result))
+            .then((result) => print(undefined, result.stdout))
             .catch((error) => print('error', error));
 
     });
