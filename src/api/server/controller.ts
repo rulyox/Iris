@@ -15,8 +15,8 @@ file_save
 file_fetch
 container_load
 container_create
-container_remove
 container_execute
+container_remove
 
 {
   "command": "network_create",
@@ -107,6 +107,12 @@ export const postCommand = async (request: express.Request, response: express.Re
 
             case 'container_create': {
                 serviceResult = services.command.containerCreate(options);
+                apiResult = new APIResult(serviceResult.result, serviceResult.message);
+                break;
+            }
+
+            case 'container_execute': {
+                serviceResult = services.command.containerExecute(options);
                 apiResult = new APIResult(serviceResult.result, serviceResult.message);
                 break;
             }
