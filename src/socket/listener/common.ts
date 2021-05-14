@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { Socket } from 'socket.io';
 import { SocketStream } from 'stream-socket.io';
-import { messageEvent, commandEvent, fileEvent } from '../event';
+import { messageEvent, commandEvent, fileSaveEvent } from '../event';
 import execute from '../../execute';
 import { print, getDirectory } from '../../utility';
 
@@ -24,9 +24,9 @@ export const commandListener = (socket: Socket|SocketIOClient.Socket) => {
 
 };
 
-export const fileListener = (socket: Socket|SocketIOClient.Socket) => {
+export const fileSaveListener = (socket: Socket|SocketIOClient.Socket) => {
 
-    socketStream.on(socket, fileEvent, (readStream, id, options) => {
+    socketStream.on(socket, fileSaveEvent, (readStream, id, options) => {
 
         print('job', `Receiving file : ${options.name}`);
 

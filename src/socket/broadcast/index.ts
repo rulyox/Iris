@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { SocketStream } from 'stream-socket.io';
 import { getTargetSockets } from './target';
-import { fileEvent, commandEvent } from '../event';
+import { fileSaveEvent, commandEvent } from '../event';
 import { print } from '../../utility';
 
 const socketStream = new SocketStream();
@@ -14,7 +14,7 @@ const broadcastFile = (path: string, directory: string, name: string, target: an
 
     for(const socket of sockets) {
 
-        const writeStream = socketStream.emit(socket, fileEvent, { directory: directory, name: name });
+        const writeStream = socketStream.emit(socket, fileSaveEvent, { directory: directory, name: name });
 
         const fileStream = fs.createReadStream(path);
         fileStream.pipe(writeStream);
