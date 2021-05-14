@@ -99,6 +99,12 @@ export const postCommand = async (request: express.Request, response: express.Re
                 break;
             }
 
+            case 'file_fetch': {
+                serviceResult = services.command.fileFetch(options);
+                apiResult = new APIResult(serviceResult.result, serviceResult.message);
+                break;
+            }
+
             case 'container_load': {
                 serviceResult = services.command.containerLoad(options);
                 apiResult = new APIResult(serviceResult.result, serviceResult.message);

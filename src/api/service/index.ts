@@ -2,6 +2,7 @@ import networkCreate from './command/networkCreate';
 import networkJoin from './command/networkJoin';
 import networkLeave from './command/networkLeave';
 import fileSave from './command/fileSave';
+import fileFetch from './command/fileFetch';
 import containerLoad from './command/containerLoad';
 import containerCreate from './command/containerCreate';
 import containerExecute from './command/containerExecute';
@@ -16,6 +17,7 @@ export default {
         networkJoin: networkJoin,
         networkLeave: networkLeave,
         fileSave: fileSave,
+        fileFetch: fileFetch,
         containerLoad: containerLoad,
         containerCreate: containerCreate,
         containerExecute: containerExecute,

@@ -1,3 +1,3 @@
 export { authListener, infoListener, disconnectListener } from './server';
 export { requestAuthListener, requestInfoListener, joinListener } from './client';
-export { commandListener, fileSaveListener, messageListener } from './common';
+export { commandListener, fileSaveListener, fileFetchListener, messageListener } from './common';
